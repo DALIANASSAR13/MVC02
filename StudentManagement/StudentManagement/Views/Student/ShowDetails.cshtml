@@ -1,0 +1,45 @@
+﻿@model StudentManagement.Models.Student
+
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<h1>Student Details</h1>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <p><strong>Id:</strong> @Model.Id</p>
+        <p><strong>Name:</strong> @Model.Name</p>
+        <p><strong>Age:</strong> @Model.Age</p>
+        <p><strong>Department:</strong> @(Model.Department?.Name ?? "Not assigned")</p>
+    </div>
+</div>
+
+<h2>Course Results</h2>
+
+@if (Model.Results == null || !Model.Results.Any())
+{
+    <p>No course results found for this student.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Course</th>
+                <th>Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Model.Results)
+            {
+                <tr>
+                    <td>@(result.Course?.Name ?? "Unknown")</td>
+                    <td>@result.Grade</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a href="/Student/ShowAll" class="btn btn-primary">Back to All Students</a>
